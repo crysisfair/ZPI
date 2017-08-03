@@ -45,12 +45,12 @@ disk_total = disk_stat[0]
 disk_used = disk_stat[1]
 disk_perc = disk_stat[3]
 
-print('')
-print(cpu_temp)
-print(cpu_use)
-print(ram_total)
-print(ram_used)
-print(ram_free)
-print(disk_total)
-print(disk_used)
-print(disk_perc)
+print("CPU temperature\t" + str(cpu_temp) + " C")
+print("CPU usage\t" + str(cpu_use) + "%")
+print("RAM total\t" + str(ram_total) + "MB")
+print("RAM used\t" + str(ram_used) + "MB")
+print("RAM free\t" + str(ram_free) + "MB")
+print("Disk total\t" + str(disk_total))
+print("Disk used\t" + str(disk_used))
+print("Disk used per\t" + str(disk_perc))
+input("OKay, I got it!")
