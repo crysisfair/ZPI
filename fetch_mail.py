@@ -7,7 +7,6 @@ import email
 import poplib
 import imaplib
 from io import StringIO
-import StoreData
 from hashlib import md5
 # Configuration
 # -------------
@@ -160,10 +159,11 @@ def pop3(host, port, usr, pwd, use_ssl):
     # Get email content and attachments
     #for i in range(1, msg_num+1):
     for current_email_des in conn.uidl()[1]:
-        print(current_email_des)
-        current_msg_num = str(current_email_des).split(" ")[0]
+        #print(current_email_des)
+        current_msg_num = str(current_email_des).split(" ")[0].replace("b'", "")
         current_email_uidl=str(current_email_des).split(" ")[1].replace('\'','')
-        print(current_email_uidl)
+        #print(current_msg_num)
+        #print(current_email_uidl)
         #print(StoreData.is_email_unread(current_email_uidl))
         #if StoreData.is_email_unread(current_email_uidl):#如果该邮件未读，则进行下载并解析
         print("[*] Unread Eamil ! Downloading email {0}/{1}---uidl:{2}".format(current_msg_num, msg_num,current_email_uidl))
@@ -171,7 +171,7 @@ def pop3(host, port, usr, pwd, use_ssl):
         # Retrieve email message lines, and write to buffer
         try:
             msg_lines = conn.retr(current_msg_num)[1]
-            buf = cStringIO.StringIO()
+            buf = StringIO.StringIO()
             for line in msg_lines:
                 print(line, file=buf)
             buf.seek(0)
