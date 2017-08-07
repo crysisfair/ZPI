@@ -10,17 +10,38 @@ class ConfigHelper:
         print("Config init")
         self.conf = ConfigParser.ConfigParse()
 
+    def CreateFile(self):
+        try:
+            os.makedir(self.dir_name)
+            #self.conf.read(self.config_file)
+            self.conf.add_section("database")
+            self.conf.set("database", "username", "zpi_db")
+            self.conf.set("database", "passwd", "123456")
+            self.conf.add_section("email")
+            self.conf.set("email", "username", "test@sample.com")
+            self.conf.set("email", "passwd", "zpi_test")
+            with open(self.config_file, 'w+') as f:
+                self.conf.write(f)
+        except Exception as e:
+            print(e)
+
     def Init(self):
         self.user_name = getpass.getuser()
         self.home = os.path.expandvars('$HOME')
         self.dir_name = self.home + r'/.zpi'
         self.config_file = self.dir_name + r'/zpi.conf'
         if os.path.exists(self.dir_name) == False:
-
-    def CreateFile(self):
-        try:
             os.makedir(self.dir_name)
-            conf.read(self.config_file)
-            conf.add_section("database")
+        if os.path.exists(self.config_file) == False:
+            self.CreateFile()
+
+    def GetConfig(self, section, option):
+        try:
+            self.read(self.config_file)
+            if self.conf.has_section(section) and self.conf.has_option(option):
+                self.get(section, option)
+            else:
+                return "No such config " + section + " " +  option
         except Exception as e:
             print(e)
+

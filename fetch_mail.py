@@ -13,7 +13,7 @@ from hashlib import md5
 # Email address
 MAILADDR = "crysisfair_zpi@sina.com"
 # Email password
-PASSWORD = "Zz7895123,."
+PASSWORD = "XXX"
 # Mail Server (pop/imap)
 SERVER = "pop3.sina.com"
 # Transfer protocol (pop3/imap4)
