@@ -2,17 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-import ConfigParser
+import configparser
 import getpass
 
 class ConfigHelper:
-    def __init__(self):
-        print("Config init")
-        self.conf = ConfigParser.ConfigParse()
-
     def CreateFile(self):
         try:
-            os.makedir(self.dir_name)
             #self.conf.read(self.config_file)
             self.conf.add_section("database")
             self.conf.set("database", "username", "zpi_db")
@@ -30,10 +25,17 @@ class ConfigHelper:
         self.home = os.path.expandvars('$HOME')
         self.dir_name = self.home + r'/.zpi'
         self.config_file = self.dir_name + r'/zpi.conf'
+        print(self.config_file)
         if os.path.exists(self.dir_name) == False:
-            os.makedir(self.dir_name)
+            os.makedirs(self.dir_name)
         if os.path.exists(self.config_file) == False:
             self.CreateFile()
+
+    def __init__(self):
+        print("Config init")
+        self.conf = configparser.ConfigParser()
+        self.Init()
+
 
     def GetConfig(self, section, option):
         try:
