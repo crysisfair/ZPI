@@ -25,7 +25,7 @@ class ConfigHelper:
         self.home = os.path.expandvars('$HOME')
         self.dir_name = self.home + r'/.zpi'
         self.config_file = self.dir_name + r'/zpi.conf'
-        print(self.config_file)
+        #print(self.config_file)
         if os.path.exists(self.dir_name) == False:
             os.makedirs(self.dir_name)
         if os.path.exists(self.config_file) == False:
@@ -39,9 +39,10 @@ class ConfigHelper:
 
     def GetConfig(self, section, option):
         try:
-            self.read(self.config_file)
-            if self.conf.has_section(section) and self.conf.has_option(option):
-                self.get(section, option)
+            print(self.config_file)
+            self.conf.read(self.config_file)
+            if self.conf.has_option(section, option):
+                return self.conf.get(section, option)
             else:
                 return "No such config " + section + " " +  option
         except Exception as e:
