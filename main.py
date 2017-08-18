@@ -1,9 +1,6 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from config_helper import ConfigHelper
+from zpi import Zpi
 
-cfg = ConfigHelper()
-username = cfg.GetConfig("email", "passwd")
-print(username)
-
+z = Zpi()
