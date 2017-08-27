@@ -6,30 +6,35 @@ import MySQLdb
 
 class MySQLHelper:
 
-    def __init__(self, host, user, password, charset="utf8"):
+    def __init__(self, log, host, user, password, charset="utf8"):
         self.host=host
         self.user=user
         self.password=password
         self.charset=charset
+        self.log=log
         try:
             self.conn=MySQLdb.connect(host=self.host, user=self.user, passwd=self.password)
             self.conn.set_character_set(self.charset)
             self.cur=self.conn.cursor()
+            self.log.info("Mysql init complete")
         except MySQLdb.Error as e:
-            print("Mysql Error %d: %s" % (e.args[0], e.args[1]))
+            self.log.error("Mysql Error {0}: {1}".format(e.args[0], e.args[1]))
+            # print()"Mysql Error %d: %s" % (e.args[0], e.args[1])
 
     def selectDb(self, db):
         try:
             self.conn.select_db(db)
         except MySQLdb.Error as e:
-            print("Mysql Error %d: %s" % (e.args[0], e.args[1]))
+            self.log.error("Mysql Error {0}: {1}".format(e.args[0], e.args[1]))
+            # print("Mysql Error %d: %s" % (e.args[0], e.args[1]))
 
     def query(self, sql):
         try:
             n=self.cur.execute(sql)
             return n
         except MySQLdb.Error as e:
-            print("Mysql Error:%s\nSQL:%s" %(e, sql))
+            self.log.error("Mysql Error:{0}\n SQL: {1}".format(e, sql))
+            # print("Mysql Error:%s\nSQL:%s" %(e, sql))
 
     def queryRow(self, sql):
         self.query(sql)

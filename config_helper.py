@@ -4,7 +4,6 @@
 import os
 import configparser
 import getpass
-import logging
 
 
 class ConfigHelper:
